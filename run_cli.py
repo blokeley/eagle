@@ -46,7 +46,6 @@ if __name__ == '__main__':
     try:
         with motor.Motor() as mtr:
             while command:
-                logging.debug('Command = {}'.format(command))
                 mtr.drive(*command)
                 command = get_command(prompt)
 

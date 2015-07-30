@@ -53,9 +53,33 @@ def execute(step):
         raise ValueError('Command {} not expected'.format(command))
 
 
+def setup_logging(level):
+    logger = logging.getLogger()
+    logger.setLevel(level)
+
+    # Remove any existing handlers
+    for handler in logger.handlers:
+        logger.removeHandler(handler)
+
+    # Create a file handler
+    fh = logging.FileHandler('log.log')
+    logger.addHandler(fh)
+
+    # Create a stream handler to log to terminal
+    sh = logging.StreamHandler()
+    logger.addHandler(sh)
+
+    fmt = '%(asctime)s %(levelname)-8s %(message)s'
+    formatter = logging.Formatter(fmt)
+
+    for handler in logger.handlers:
+        handler.setLevel(level)
+        handler.setFormatter(formatter)
+
+
 if __name__ == '__main__':
-    log_fmt = '%(asctime)s %(levelname)-8s %(message)s'
-    logging.basicConfig(level=logging.DEBUG, format=log_fmt)
+    
+    setup_logging(logging.DEBUG)
 
     if len(sys.argv) != 2:
         print(__doc__)
