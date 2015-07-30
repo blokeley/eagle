@@ -3,3 +3,8 @@
 # emacs files
 *~
 \#*\#
+
+# Python files
+__pycache__/
+*.pyo
+*.pyc

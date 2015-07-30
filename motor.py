@@ -14,8 +14,7 @@ import RPi.GPIO as GPIO
 
 class Motor():
 
-    def __enter__(self):
-        """Enter context manager to use with `with` statement."""
+    def __init__(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
 
@@ -33,6 +32,8 @@ class Motor():
 
         self._drive_count = 0
 
+    def __enter__(self):
+        """Enter context manager to use with `with` statement."""
         return self
 
     def __exit__(self, exc_type, exc_value, exc_tb):
@@ -61,7 +62,7 @@ class Motor():
 
         self._drive_count += 1
         fmt = 'Drive #{} at {} duty for {} s'
-        logging.debug(fmt.format(self._drive_count, duty. time_))
+        logging.debug(fmt.format(self._drive_count, duty, time_))
 
         if duty > 0:
             GPIO.output(self._in1_pin, True)

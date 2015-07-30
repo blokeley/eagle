@@ -13,7 +13,7 @@ import motor
 
 
 def get_command(prompt):
-    """Split command into part and convert to ints."""
+    """Split command into part and convert to floats."""
     command = input(prompt).split()
 
     # Return False if command is exit
@@ -22,10 +22,10 @@ def get_command(prompt):
 
     # Set motor drive time to 0.5 seconds if not given
     if len(command) == 1:
-        command[1] = 0.5
+        command.append(0.5)
 
     # Convert arguments to integers
-    return (float(num) for num in command[:1])
+    return [float(num) for num in command[:2]]
 
 
 if __name__ == '__main__':
@@ -33,9 +33,10 @@ if __name__ == '__main__':
     date_fmt = '%H:%M:%S'
     logging.basicConfig(level=logging.DEBUG, format=log_fmt, datefmt=date_fmt)
 
-    print('Motor driver. Type:`duty` `time` e.g.:')
-    print('"100 0.5" for 100\% duty clockwise for 0.5 seconds,')
-    print('"-100" for 100\% duty counterclockwise forever,')
+    print('Motor driver.')
+    print('Type: "duty time" e.g.:')
+    print('"100 0.5" for 100% duty clockwise for 0.5 seconds,')
+    print('"-100" for 100% duty counterclockwise forever,')
     print('"0" for stop and')
     print('"exit" to exit')
 
@@ -45,6 +46,7 @@ if __name__ == '__main__':
     try:
         with motor.Motor() as mtr:
             while command:
+                logging.debug('Command = {}'.format(command))
                 mtr.drive(*command)
                 command = get_command(prompt)
 
