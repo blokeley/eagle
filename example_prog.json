@@ -1,0 +1,24 @@
+[{
+    "command": "move",
+    "pwm": 100,
+    "time": 0.5
+}, {
+    "command": "move",
+    "pwm": -100,
+    "time": 0.5
+}, {
+    "command": "comment",
+    "comment": "1000 cycles of full duty for 0.3 seconds"
+}, {
+    "command": "repeat",
+    "repeats": 1000,
+    "steps": [{
+        "command": "move",
+        "pwm": 100,
+        "time": 0.3
+    }, {
+        "command": "move",
+        "pwm": -100,
+        "time": 0.3
+    }]
+}]
