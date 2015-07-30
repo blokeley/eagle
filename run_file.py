@@ -57,8 +57,6 @@ if __name__ == '__main__':
     log_fmt = '%(asctime)s %(levelname)-8s %(message)s'
     logging.basicConfig(level=logging.DEBUG, format=log_fmt)
 
-    mtr = motor.Motor()
-
     if len(sys.argv) != 2:
         print(__doc__)
         sys.exit(1)
@@ -66,5 +64,10 @@ if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         program = json.load(f)
 
-    for step in program:
-        execute(step)
+    try:
+        with motor.Motor() as mtr:
+            for step in program:
+                execute(step)
+
+    except KeyboardInterrupt:
+        logging.info('Exited by KeyboardInterrrupt')
