@@ -18,6 +18,7 @@ MIT licence
 import json
 import logging
 import sys
+import time
 
 import motor
 
@@ -45,6 +46,9 @@ def execute(step):
 
     elif command == 'move':
         mtr.drive(step['duty'], step['time'])
+
+    elif command == 'sleep':
+        time.sleep(step['duration'])
 
     elif command == 'comment':
         logging.info(step['comment'])
